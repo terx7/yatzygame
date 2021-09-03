@@ -1,0 +1,15 @@
+.diceSection{
+    display: flex;
+    justify-content: center;
+}
+.diceContainer{
+    display: flex;
+    justify-content: space-evenly;
+    width: 500px;
+
+}
+
+.dice{
+    padding: 1rem;
+    border: 3px solid black;
+}
