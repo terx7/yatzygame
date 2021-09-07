@@ -11,15 +11,17 @@
 <body>
     <div class="diceSection">
         <div class="diceContainer">
-            <div id="dice1" class="dice"></div>
-            <div id="dice2" class="dice"></div>
-            <div id="dice3" class="dice"></div>
-            <div id="dice4" class="dice"></div>
-            <div id="dice5" class="dice"></div>
+            <div id="dice1" onclick="saveDice(this)" class="dice"></div>
+            <div id="dice2" onclick="saveDice(this)" class="dice"></div>
+            <div id="dice3" onclick="saveDice(this)" class="dice"></div>
+            <div id="dice4" onclick="saveDice(this)" class="dice"></div>
+            <div id="dice5" onclick="saveDice(this)" class="dice"></div>
         </div>
 
     </div>
     <button onclick="rollAllDice()" id="roll">Roll</button>
+    <button onclick="reset()" id="resetButton">Reset</button>
+    
 </body>
 <script src="app.js"></script>
 
