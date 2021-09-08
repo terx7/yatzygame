@@ -1,8 +1,31 @@
 let roll = document.getElementById('roll')
 const dice = document.querySelectorAll('.dice')
 let rollCount = 3
-console.log(dice)
+// console.log(dice)
 
+diceDict = {
+    dice1 : {
+        value : 0,
+        isLocked : false,
+    },
+    dice2 : {
+        value : 0,
+        isLocked : false
+    },
+    dice3 : {
+        value : 0,
+        isLocked : false
+    },
+    dice4 : {
+        value : 0,
+        isLocked : false
+    },
+    dice5 : {
+        value : 0,
+        isLocked : false
+    },
+}
+// console.log(diceDict);
 
 
 
@@ -11,12 +34,13 @@ function reset() {
 }
 
 function saveDice(el) {
-    if (el.getAttribute('isMarked')) {
-        el.style.border = '3px solid black'
-        el.removeAttribute('isMarked')
+    console.log(el)
+    if (diceDict[el.id].isLocked) {
+        document.getElementById(el.id).style.border = '3px solid black'
+        diceDict[el.id].isLocked = false;
     } else {
-        el.style.border = '3px solid red'
-        el.setAttribute('isMarked', true)
+        document.getElementById(el.id).style.border = '3px solid red'
+        diceDict[el.id].isLocked = true;
     }
 
 
@@ -44,12 +68,12 @@ function rollAllDice() {
         console.log(rollCount)
         rollCount--
 
-        dice.forEach(el => {
-            console.log(el.innerHTML)
-            if(!el.getAttribute('isMarked')){
-                el.innerHTML = rollDice()
+        for (let el in diceDict){
+            if(!diceDict[el].isLocked){
+                diceDict[el].value = rollDice()
+                document.getElementById(el).innerHTML = diceDict[el].value
             }
-        });
+        };
 
     } else {
         console.log('You cant roll anymore!')
