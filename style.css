@@ -13,3 +13,10 @@
     padding: 1rem;
     border: 3px solid black;
 }
+
+.scoreboardContainer{
+    display: flex;
+}
+.scoreboardRow{
+    border: 1px solid black;
+}
