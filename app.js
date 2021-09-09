@@ -1,9 +1,11 @@
 let roll = document.getElementById('roll')
 const dice = document.querySelectorAll('.dice')
+const scoreBoardPoint = document.querySelectorAll('.scoreboardYou')
 let rollCount = 3
-// console.log(dice)
+let counts = {}
+console.log(scoreBoardPoint)
 
-diceDict = {
+let diceDict = {
     dice1: {
         value: 0,
         isLocked: false,
@@ -31,6 +33,7 @@ diceDict = {
 
 function reset() {
     rollCount = 3
+    counts = {}
     dice.forEach(el => {
         el.style.border = '3px solid black'
         diceDict[el.id].isLocked = false;
@@ -67,23 +70,35 @@ function rollDice() {
 
 function rollAllDice() {
     console.log('yes')
-
+    counts = {}
     if (rollCount >= 0) {
         console.log(rollCount)
         rollCount--
 
         for (let el in diceDict) {
             if (!diceDict[el].isLocked) {
+
                 diceDict[el].value = rollDice()
                 document.getElementById(el).innerHTML = diceDict[el].value
+                counts[diceDict[el].value] = counts[diceDict[el].value] ? counts[diceDict[el].value] += diceDict[el].value : diceDict[el].value
+
+
+                // console.log(counts)
             }
         };
+
 
     } else {
         console.log('You cant roll anymore!')
     }
 
+    scoreBoardPoint.forEach(e => {
+        if (e.id in counts) {
+            console.log(e)
 
+            e.innerHTML = counts[e.id] ? counts[e.id] : 0
+        }
+    })
 
 }
 
@@ -92,3 +107,5 @@ function rollAllDice() {
 // });
 
 rollAllDice();
+
+
