@@ -17,19 +17,19 @@
 .scoreboardContainer{
     display: flex;
     flex-direction: column;
-    width: 10rem;
+    width: 300px;
 }
 .scoreboardRow{
     display: flex;
     justify-content: space-around;
     border: 1px solid black;
-    padding: 1px;
-
 
 }
 .scoreboardName{
+    display: flex;
     width: 60%;
-
+    padding: 2px;
+    align-items: center;
 
 }
 
@@ -40,6 +40,9 @@
     flex-grow: 1;
     justify-content: center;
     width: 20%;
+    padding: 3px;
 
-
+}
+.divider{
+    border-top: 4px solid black;
 }

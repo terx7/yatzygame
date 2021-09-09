@@ -1,8 +1,12 @@
 let roll = document.getElementById('roll')
 const dice = document.querySelectorAll('.dice')
 const scoreBoardPoint = document.querySelectorAll('.scoreboardYou')
+const threeOfKind = document.getElementById('threeOf')
+const fourOfKind = document.getElementById('fourOf')
 let rollCount = 3
 let counts = {}
+let numCounter = {}
+let sum = 0
 console.log(scoreBoardPoint)
 
 let diceDict = {
@@ -69,7 +73,7 @@ function rollDice() {
 // document.getElementById("dice5").innerHTML = rollDice();
 
 function rollAllDice() {
-    console.log('yes')
+    // console.log('yes')
     counts = {}
     if (rollCount >= 0) {
         console.log(rollCount)
@@ -85,8 +89,9 @@ function rollAllDice() {
 
                 // console.log(counts)
             }
-        };
 
+        };
+        threeOfaKindCheck()
 
     } else {
         console.log('You cant roll anymore!')
@@ -94,7 +99,7 @@ function rollAllDice() {
 
     scoreBoardPoint.forEach(e => {
         if (e.id in counts) {
-            console.log(e)
+
 
             e.innerHTML = counts[e.id] ? counts[e.id] : 0
         }
@@ -106,6 +111,29 @@ function rollAllDice() {
 //     console.log(el.innerText)
 // });
 
+
+
+console.log(numCounter)
 rollAllDice();
 
 
+function threeOfaKindCheck() {
+    for (let e in diceDict) {
+        console.log(diceDict[e])
+
+        sum += diceDict[e].value
+        console.log(sum)
+        numCounter[diceDict[e].value] = numCounter[diceDict[e].value] ? numCounter[diceDict[e].value] + 1 : 1
+        if (numCounter[diceDict[e].value] == 3) {
+            threeOfKind.innerHTML = sum
+            
+
+        } else if (numCounter[diceDict[e].value] == 4) {
+            threeOfKind.innerHTML = sum
+            fourOfKind.innerHTML = sum
+        } else {
+            console.log('no')
+        }
+
+    }
+}
