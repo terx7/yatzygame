@@ -3,11 +3,24 @@ const dice = document.querySelectorAll('.dice')
 const scoreBoardPoint = document.querySelectorAll('.scoreboardYou')
 const threeOfKind = document.getElementById('threeOf')
 const fourOfKind = document.getElementById('fourOf')
+const smallStraight = document.getElementById('smallStraight')
+const largeStraight = document.getElementById('largeStraight')
+const fullHouse = document.getElementById('fullHouse')
+const chance = document.getElementById('chance')
+const yahtzee = document.getElementById('yahtzee')
 let rollCount = 3
 let counts = {}
 let numCounter = {}
 let sum = 0
-console.log(scoreBoardPoint)
+let numberPattern = ""
+const fullhouseRegex = /(\d)\1{1}/
+const threeOfAKindRegex = /(\d)\1{2}/
+const fourOfAKindRegex = /(\d)\1{3}/
+const yahtzeeRegex = /(\d)\1{4}/
+const smallStraightRegex = /(1234|2345|3456)/
+const straightRegex = /(12345|23456)/
+// console.log(smallStraightRegex.test("3412"))
+// console.log(scoreBoardPoint)
 
 let diceDict = {
     dice1: {
@@ -118,22 +131,56 @@ rollAllDice();
 
 
 function threeOfaKindCheck() {
+    console.log(diceDict)
     for (let e in diceDict) {
-        console.log(diceDict[e])
+
+        numberPattern += diceDict[e].value
+        console.log(numberPattern)
 
         sum += diceDict[e].value
-        console.log(sum)
-        numCounter[diceDict[e].value] = numCounter[diceDict[e].value] ? numCounter[diceDict[e].value] + 1 : 1
-        if (numCounter[diceDict[e].value] == 3) {
-            threeOfKind.innerHTML = sum
-            
+        // console.log(sum)
+        // numCounter[diceDict[e].value] = numCounter[diceDict[e].value] ? numCounter[diceDict[e].value] + 1 : 1
+        // console.log(numCounter)
+        // console.log(numCounter[1])
+        // if (numCounter[diceDict[e].value] == 3) {
+        //     threeOfKind.innerHTML = sum
 
-        } else if (numCounter[diceDict[e].value] == 4) {
-            threeOfKind.innerHTML = sum
-            fourOfKind.innerHTML = sum
-        } else {
-            console.log('no')
-        }
+
+        // } else if (numCounter[diceDict[e].value] == 4) {
+        //     threeOfKind.innerHTML = sum
+        //     fourOfKind.innerHTML = sum
+        // }
+        // // else if (numCounter[diceDict[e].value] == 3 && numCounter[diceDict[e].value]) {
+
+        // // }
+        // else {
+        //     console.log('no')
+        // }
 
     }
+
+    numberPattern = numberPattern.split('').sort().join('');
+
+    console.log(numberPattern.replace(threeOfAKindRegex, ''))
+    if (threeOfAKindRegex.test(numberPattern)) {
+        threeOfKind.innerHTML = sum
+        if (fullhouseRegex.test(numberPattern.replace(threeOfAKindRegex, ''))) {
+            fullHouse.innerHTML = 25
+        }
+    }
+    if (fourOfAKindRegex.test(numberPattern)) {
+        fourOfKind.innerHTML = sum
+    }
+    if (yahtzeeRegex.test(numberPattern)) {
+        yahtzee.innerHTML = 50
+    }
+    if (smallStraightRegex.test(numberPattern)) {
+        smallStraight.innerHTML = 30
+    }
+    if (straightRegex.test(numberPattern)) {
+        largeStraight.innerHTML = 40
+    }
+
+    chance.innerHTML = sum
+
 }
