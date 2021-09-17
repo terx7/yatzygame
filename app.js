@@ -1,13 +1,13 @@
 let roll = document.getElementById('roll')
 const dice = document.querySelectorAll('.dice')
 const scoreBoardPoint = document.querySelectorAll('.scoreboardYou')
-const threeOfKind = document.getElementById('threeOf')
-const fourOfKind = document.getElementById('fourOf')
-const smallStraight = document.getElementById('smallStraight')
-const largeStraight = document.getElementById('largeStraight')
-const fullHouse = document.getElementById('fullHouse')
-const chance = document.getElementById('chance')
-const yahtzee = document.getElementById('yahtzee')
+let threeOfKind = document.getElementById('threeOf')
+let fourOfKind = document.getElementById('fourOf')
+let smallStraight = document.getElementById('smallStraight')
+let largeStraight = document.getElementById('largeStraight')
+let fullHouse = document.getElementById('fullHouse')
+let chance = document.getElementById('chance')
+let yahtzee = document.getElementById('yahtzee')
 let rollCount = 3
 let counts = {}
 let numCounter = {}
@@ -49,7 +49,7 @@ let diceDict = {
 
 
 function reset() {
-    rollCount = 3
+    rollCount = 30
     counts = {}
     dice.forEach(el => {
         el.style.border = '3px solid black'
@@ -118,6 +118,8 @@ function rollAllDice() {
         }
     })
 
+
+
 }
 
 // dice.forEach(el => {
@@ -132,13 +134,21 @@ rollAllDice();
 
 function threeOfaKindCheck() {
     console.log(diceDict)
+    threeOfKind.innerHTML = 0
+    fourOfKind.innerHTML = 0
+    yahtzee.innerHTML = 0
+    fullHouse.innerHTML = 0
+    smallStraight.innerHTML = 0
+    largeStraight.innerHTML = 0
+    chance.innerHTML = 0
+    sum = 0
+    numberPattern = ""
     for (let e in diceDict) {
-
         numberPattern += diceDict[e].value
         console.log(numberPattern)
 
         sum += diceDict[e].value
-        // console.log(sum)
+        console.log(sum)
         // numCounter[diceDict[e].value] = numCounter[diceDict[e].value] ? numCounter[diceDict[e].value] + 1 : 1
         // console.log(numCounter)
         // console.log(numCounter[1])
@@ -163,6 +173,8 @@ function threeOfaKindCheck() {
 
     console.log(numberPattern.replace(threeOfAKindRegex, ''))
     if (threeOfAKindRegex.test(numberPattern)) {
+        console.log(threeOfAKindRegex.test(numberPattern))
+
         threeOfKind.innerHTML = sum
         if (fullhouseRegex.test(numberPattern.replace(threeOfAKindRegex, ''))) {
             fullHouse.innerHTML = 25
