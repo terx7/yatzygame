@@ -14,8 +14,8 @@ let numCounter = {}
 let sum = 0
 let numberPattern = ""
 const fullhouseRegex = /(\d)\1{1}/
-const threeOfAKindRegex = /(\d)\1{2}/
-const fourOfAKindRegex = /(\d)\1{3}/
+const threeOfKindRegex = /(\d)\1{2}/
+const fourOfKindRegex = /(\d)\1{3}/
 const yahtzeeRegex = /(\d)\1{4}/
 const smallStraightRegex = /(1234|2345|3456)/
 const straightRegex = /(12345|23456)/
@@ -48,6 +48,14 @@ let diceDict = {
 
 
 
+for (let i = 0; i < scoreBoardPoint.length; i++) {
+    scoreBoardPoint[i].addEventListener("click", e => {
+        e.target.dataset.isLocked = true
+        e.target.style.border = '3px solid red'
+    })
+}
+
+
 function reset() {
     rollCount = 30
     counts = {}
@@ -69,13 +77,15 @@ function saveDice(el) {
 
 
 
+
+}
+
+function saveTableScore(id) {
+    console.log("lol")
 }
 
 function rollDice() {
     num = Math.floor(Math.random() * 6) + 1
-    // if (num == 0) {
-    //     num = 1
-    // }
     return num;
 }
 
@@ -112,8 +122,6 @@ function rollAllDice() {
 
     scoreBoardPoint.forEach(e => {
         if (e.id in counts) {
-
-
             e.innerHTML = counts[e.id] ? counts[e.id] : 0
         }
     })
@@ -121,10 +129,6 @@ function rollAllDice() {
 
 
 }
-
-// dice.forEach(el => {
-//     console.log(el.innerText)
-// });
 
 
 
@@ -134,13 +138,13 @@ rollAllDice();
 
 function threeOfaKindCheck() {
     console.log(diceDict)
-    threeOfKind.innerHTML = 0
-    fourOfKind.innerHTML = 0
-    yahtzee.innerHTML = 0
-    fullHouse.innerHTML = 0
-    smallStraight.innerHTML = 0
-    largeStraight.innerHTML = 0
-    chance.innerHTML = 0
+    // threeOfKind.innerHTML = 0
+    // fourOfKind.innerHTML = 0
+    // yahtzee.innerHTML = 0
+    // fullHouse.innerHTML = 0
+    // smallStraight.innerHTML = 0
+    // largeStraight.innerHTML = 0
+
     sum = 0
     numberPattern = ""
     for (let e in diceDict) {
@@ -171,28 +175,44 @@ function threeOfaKindCheck() {
 
     numberPattern = numberPattern.split('').sort().join('');
 
-    console.log(numberPattern.replace(threeOfAKindRegex, ''))
-    if (threeOfAKindRegex.test(numberPattern)) {
-        console.log(threeOfAKindRegex.test(numberPattern))
+    console.log(numberPattern.replace(threeOfKindRegex, ''))
+
+    if (threeOfKindRegex.test(numberPattern)) {
+        console.log(threeOfKindRegex.test(numberPattern))
 
         threeOfKind.innerHTML = sum
-        if (fullhouseRegex.test(numberPattern.replace(threeOfAKindRegex, ''))) {
+        if (fullhouseRegex.test(numberPattern.replace(threeOfKindRegex, ''))) {
             fullHouse.innerHTML = 25
+        } else if (fullHouse.dataset.isLocked == "true") {
+            fullHouse.innerHTML = fullHouse.innerHTML
         }
+    } else if (threeOfKind.dataset.isLocked == "true") {
+        threeOfKind.innerHTML = threeOfKind.innerHTML
     }
-    if (fourOfAKindRegex.test(numberPattern)) {
+    if (fourOfKind.dataset.isLocked == "false" && fourOfKindRegex.test(numberPattern)) {
         fourOfKind.innerHTML = sum
+    } else if (fourOfKind.dataset.isLocked == "true") {
+        fourOfKind.innerHTML = fourOfKind.innerHTML
     }
     if (yahtzeeRegex.test(numberPattern)) {
         yahtzee.innerHTML = 50
+    } else if (yahtzee.dataset.isLocked == "true") {
+        yahtzee.innerHTML = yahtzee.innerHTML
     }
-    if (smallStraightRegex.test(numberPattern)) {
+    if (smallStraight.dataset.isLocked == "false", smallStraightRegex.test(numberPattern)) {
         smallStraight.innerHTML = 30
+    } else if (smallStraight.dataset.isLocked == "true") {
+        smallStraight.innerHTML = smallStraight.innerHTML
     }
     if (straightRegex.test(numberPattern)) {
         largeStraight.innerHTML = 40
+    } else if (largeStraight.dataset.isLocked == "true") {
+        largeStraight.innerHTML = largeStraight.innerHTML
     }
-
-    chance.innerHTML = sum
+    if (chance.dataset.isLocked == "false") {
+        chance.innerHTML = sum
+    } else if (chance.dataset.isLocked == "true") {
+        chance.innerHTML = chance.innerHTML
+    }
 
 }
