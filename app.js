@@ -168,40 +168,54 @@ function threeOfaKindCheck() {
 
     // console.log(numberPattern.replace(threeOfKindRegex, ''))
 
-    if (threeOfKindRegex.test(numberPattern) && threeOfKind.dataset.isLocked == "false") {
+    if (threeOfKind.dataset.isLocked == "false" && threeOfKindRegex.test(numberPattern)) {
         threeOfKind.innerHTML = sum
         if (fullhouseRegex.test(numberPattern.replace(threeOfKindRegex, ''))) {
             fullHouse.innerHTML = 25
         } else if (fullHouse.dataset.isLocked == "true") {
             fullHouse.innerHTML = fullHouse.innerHTML
+        } else {
+            fullHouse.innerHTML = 0
         }
     } else if (threeOfKind.dataset.isLocked == "true") {
         threeOfKind.innerHTML = threeOfKind.innerHTML
+    } else {
+        threeOfKind.innerHTML = 0
     }
     if (fourOfKind.dataset.isLocked == "false" && fourOfKindRegex.test(numberPattern)) {
         fourOfKind.innerHTML = sum
     } else if (fourOfKind.dataset.isLocked == "true") {
         fourOfKind.innerHTML = fourOfKind.innerHTML
+    } else {
+        fourOfKind.innerHTML = 0
     }
     if (yahtzeeRegex.test(numberPattern)) {
         yahtzee.innerHTML = 50
     } else if (yahtzee.dataset.isLocked == "true") {
         yahtzee.innerHTML = yahtzee.innerHTML
+    } else {
+        yahtzee.innerHTML = 0
     }
-    if (smallStraight.dataset.isLocked == "false", smallStraightRegex.test(numberPattern)) {
+    if (smallStraight.dataset.isLocked == "false" && smallStraightRegex.test(numberPattern)) {
         smallStraight.innerHTML = 30
     } else if (smallStraight.dataset.isLocked == "true") {
         smallStraight.innerHTML = smallStraight.innerHTML
+    } else {
+        smallStraight.innerHTML = 0
     }
     if (straightRegex.test(numberPattern)) {
         largeStraight.innerHTML = 40
     } else if (largeStraight.dataset.isLocked == "true") {
         largeStraight.innerHTML = largeStraight.innerHTML
+    } else {
+        largeStraight.innerHTML = 0
     }
     if (chance.dataset.isLocked == "false") {
         chance.innerHTML = sum
     } else if (chance.dataset.isLocked == "true") {
         chance.innerHTML = chance.innerHTML
+    } else {
+        chance.innerHTML = 0
     }
 
 }
