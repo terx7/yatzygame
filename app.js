@@ -8,7 +8,10 @@ let largeStraight = document.getElementById('largeStraight')
 let fullHouse = document.getElementById('fullHouse')
 let chance = document.getElementById('chance')
 let yahtzee = document.getElementById('yahtzee')
-let rollCount = 3
+let rollCount = 2
+let clickCount = 0
+let userChoiceTrue = false
+let rollCountDiv = document.getElementById('rollCount')
 let counts = {}
 let numCounter = {}
 let sum = 0
@@ -50,23 +53,36 @@ let diceDict = {
 
 for (let i = 0; i < scoreBoardPoint.length; i++) {
     scoreBoardPoint[i].addEventListener("click", e => {
-        e.target.dataset.isLocked = true
-        e.target.style.border = '3px solid red'
+        if (e.target.dataset.isLocked == "false") {
+            e.target.dataset.isLocked = true
+            e.target.style.border = '3px solid red'
+            rollCount = 3
+            rollCountDiv.innerText = rollCount
+            console.log("Points chosen, starting new round")
+            reset();
+            rollAllDice();
+        }
     })
 }
 
 
 function reset() {
-    rollCount = 30
+    scoreBoardPoint.forEach(el => {
+        if (el.dataset.isLocked == "false") {
+            el.innerHTML = 0;
+        }
+    })
+    rollCount = 2
     counts = {}
     dice.forEach(el => {
         el.style.border = '3px solid black'
         diceDict[el.id].isLocked = false;
     })
+
 }
 
 function saveDice(el) {
-    console.log(el)
+    // console.log(el)
     if (diceDict[el].isLocked) {
         document.getElementById(el).style.border = '3px solid black'
         diceDict[el].isLocked = false;
@@ -80,40 +96,36 @@ function saveDice(el) {
 
 }
 
-function saveTableScore(id) {
-    console.log("lol")
-}
 
 function rollDice() {
     num = Math.floor(Math.random() * 6) + 1
     return num;
 }
 
-// document.getElementById("dice1").innerHTML = rollDice();
-// document.getElementById("dice2").innerHTML = rollDice();
-// document.getElementById("dice3").innerHTML = rollDice();
-// document.getElementById("dice4").innerHTML = rollDice();
-// document.getElementById("dice5").innerHTML = rollDice();
+
 
 function rollAllDice() {
     // console.log('yes')
+
     counts = {}
     if (rollCount >= 0) {
-        console.log(rollCount)
+        // userChoiceTrue = false
+        // console.log(rollCount)
+        // clickCount = 1
+        // console.log("clickCount:" + clickCount)
+        rollCountDiv.innerText = rollCount
         rollCount--
+
 
         for (let el in diceDict) {
             if (!diceDict[el].isLocked) {
-
                 diceDict[el].value = rollDice()
-                document.getElementById(el).innerHTML = diceDict[el].value
-                counts[diceDict[el].value] = counts[diceDict[el].value] ? counts[diceDict[el].value] += diceDict[el].value : diceDict[el].value
-
-
-                // console.log(counts)
             }
+            document.getElementById(el).innerHTML = diceDict[el].value
+            counts[diceDict[el].value] = counts[diceDict[el].value] ? counts[diceDict[el].value] += diceDict[el].value : diceDict[el].value
 
         };
+        console.log(counts)
         threeOfaKindCheck()
 
     } else {
@@ -122,7 +134,9 @@ function rollAllDice() {
 
     scoreBoardPoint.forEach(e => {
         if (e.id in counts) {
-            e.innerHTML = counts[e.id] ? counts[e.id] : 0
+            if (e.dataset.isLocked == "false") {
+                e.innerHTML = counts[e.id] ? counts[e.id] : 0
+            }
         }
     })
 
@@ -132,54 +146,29 @@ function rollAllDice() {
 
 
 
-console.log(numCounter)
+// console.log(numCounter)
 rollAllDice();
 
 
 function threeOfaKindCheck() {
-    console.log(diceDict)
-    // threeOfKind.innerHTML = 0
-    // fourOfKind.innerHTML = 0
-    // yahtzee.innerHTML = 0
-    // fullHouse.innerHTML = 0
-    // smallStraight.innerHTML = 0
-    // largeStraight.innerHTML = 0
+    // console.log(diceDict)
+
 
     sum = 0
     numberPattern = ""
     for (let e in diceDict) {
         numberPattern += diceDict[e].value
-        console.log(numberPattern)
 
         sum += diceDict[e].value
-        console.log(sum)
-        // numCounter[diceDict[e].value] = numCounter[diceDict[e].value] ? numCounter[diceDict[e].value] + 1 : 1
-        // console.log(numCounter)
-        // console.log(numCounter[1])
-        // if (numCounter[diceDict[e].value] == 3) {
-        //     threeOfKind.innerHTML = sum
-
-
-        // } else if (numCounter[diceDict[e].value] == 4) {
-        //     threeOfKind.innerHTML = sum
-        //     fourOfKind.innerHTML = sum
-        // }
-        // // else if (numCounter[diceDict[e].value] == 3 && numCounter[diceDict[e].value]) {
-
-        // // }
-        // else {
-        //     console.log('no')
-        // }
 
     }
+    // console.log(numberPattern)
 
     numberPattern = numberPattern.split('').sort().join('');
 
-    console.log(numberPattern.replace(threeOfKindRegex, ''))
+    // console.log(numberPattern.replace(threeOfKindRegex, ''))
 
-    if (threeOfKindRegex.test(numberPattern)) {
-        console.log(threeOfKindRegex.test(numberPattern))
-
+    if (threeOfKindRegex.test(numberPattern) && threeOfKind.dataset.isLocked == "false") {
         threeOfKind.innerHTML = sum
         if (fullhouseRegex.test(numberPattern.replace(threeOfKindRegex, ''))) {
             fullHouse.innerHTML = 25
