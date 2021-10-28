@@ -87,7 +87,7 @@ function saveDice(el) {
         document.getElementById(el).style.border = '3px solid black'
         diceDict[el].isLocked = false;
     } else {
-        document.getElementById(el).style.border = '3px solid red'
+        document.getElementById(el).style.border = '3px solid #e82734'
         diceDict[el].isLocked = true;
     }
 
@@ -137,6 +137,11 @@ function rollAllDice() {
             if (e.dataset.isLocked == "false") {
                 e.innerHTML = counts[e.id] ? counts[e.id] : 0
             }
+        }
+        if (e.innerHTML != "0" && e.dataset.isLocked == "false"){
+            e.style.color = "red"
+        } else {
+            e.style.color = "black"
         }
     })
 

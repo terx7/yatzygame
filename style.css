@@ -1,3 +1,8 @@
+body{
+    background-color: gainsboro;
+    font-family: 'Roboto Mono', monospace;
+}
+
 .diceSection{
     display: flex;
     justify-content: center;
@@ -12,6 +17,12 @@
 .dice{
     padding: 1rem;
     border: 3px solid black;
+}
+.scoreboardSection{
+    width: 100%;
+    display: flex;
+    margin-top: 10px;
+    justify-content: center;
 }
 
 .scoreboardContainer{
@@ -45,4 +56,26 @@
 }
 .divider{
     border-top: 4px solid black;
+}
+.buttonContainer{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+.btn{
+
+}
+.rollText{
+    font-size: 32px;
+}
+.rollCount{
+    font-size: 48px;
+}
+.rollStatus{
+    padding-top: 5px;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    flex-direction: column;
+    
 }
