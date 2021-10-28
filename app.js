@@ -196,7 +196,7 @@ function threeOfaKindCheck() {
     } else {
         yahtzee.innerHTML = 0
     }
-    if (smallStraight.dataset.isLocked == "false" && smallStraightRegex.test(numberPattern)) {
+    if (smallStraight.dataset.isLocked == "false" && smallStraightRegex.test(Array.from(new Set(numberPattern.split(''))).join(''))) {
         smallStraight.innerHTML = 30
     } else if (smallStraight.dataset.isLocked == "true") {
         smallStraight.innerHTML = smallStraight.innerHTML
