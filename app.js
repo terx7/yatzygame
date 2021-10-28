@@ -8,6 +8,8 @@ let largeStraight = document.getElementById('largeStraight')
 let fullHouse = document.getElementById('fullHouse')
 let chance = document.getElementById('chance')
 let yahtzee = document.getElementById('yahtzee')
+let pointSum = document.getElementById("sum")
+let bonusPoints = document.getElementById("bonus")
 let rollCount = 2
 let clickCount = 0
 let userChoiceTrue = false
@@ -16,6 +18,7 @@ let counts = {}
 let numCounter = {}
 let sum = 0
 let numberPattern = ""
+let scoreArray = []
 const fullhouseRegex = /(\d)\1{1}/
 const threeOfKindRegex = /(\d)\1{2}/
 const fourOfKindRegex = /(\d)\1{3}/
@@ -102,6 +105,21 @@ function rollDice() {
     return num;
 }
 
+function sumCheck(e) {
+    console.log(e)
+    const reducer = (prevValue, currentValue) => prevValue + currentValue;
+    for (let i = 0; i < 6; i++) {
+        scoreArray.push(parseInt(e[i].innerHTML))
+    }
+    console.log(scoreArray.reduce(reducer))
+    console.log(scoreArray)
+    pointSum.innerHTML = scoreArray.reduce(reducer)
+    if (pointSum.innerHTML >= 63) {
+        bonusPoints.innerHTML = 35
+    }
+
+}
+
 
 
 function rollAllDice() {
@@ -132,19 +150,21 @@ function rollAllDice() {
         console.log('You cant roll anymore!')
     }
     let i = 0
+    const reducer = (prevValue, currentValue) => prevValue + currentValue;
     scoreBoardPoint.forEach(e => {
+        // console.log(e)
         if (e.id in counts) {
 
             if (e.dataset.isLocked == "false") {
+
                 e.innerHTML = counts[e.id] ? counts[e.id] : 0
             }
 
         }
         if (e.dataset.isLocked == "true") {
             i++
-            console.log(i)
             if (i == 6) {
-                console.log("LMFAOOOOOOO")
+                sumCheck(scoreBoardPoint)
             }
         }
         if (e.innerHTML != "0" && e.dataset.isLocked == "false") {
@@ -153,7 +173,7 @@ function rollAllDice() {
             e.style.color = "black"
         }
     })
-
+    console.log(scoreArray)
 
 
 }
