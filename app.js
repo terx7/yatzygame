@@ -131,14 +131,23 @@ function rollAllDice() {
     } else {
         console.log('You cant roll anymore!')
     }
-
+    let i = 0
     scoreBoardPoint.forEach(e => {
         if (e.id in counts) {
+
             if (e.dataset.isLocked == "false") {
                 e.innerHTML = counts[e.id] ? counts[e.id] : 0
             }
+
         }
-        if (e.innerHTML != "0" && e.dataset.isLocked == "false"){
+        if (e.dataset.isLocked == "true") {
+            i++
+            console.log(i)
+            if (i == 6) {
+                console.log("LMFAOOOOOOO")
+            }
+        }
+        if (e.innerHTML != "0" && e.dataset.isLocked == "false") {
             e.style.color = "red"
         } else {
             e.style.color = "black"
